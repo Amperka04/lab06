@@ -163,9 +163,6 @@ target_link_libraries(hello formatter_ex)
 ```
 </details>
 
-**Значок сборки**
-![Build Status](https://github.com/Amperka04/lab04/workflows/C++%20Build/badge.svg)
-
 Скопировали репозиторий lab03 в lab04:
 ```sh
 git clone https://github.com/${GITHUB_USERNAME}/lab03 lab04
@@ -223,13 +220,10 @@ jobs:
       run: .\hello.exe
 ```
 
-Далее 
-```код ```
-
 Запушили в гит:
 ```sh
 git add .github/workflows/build.yml
 git add README.md
-git commit -m "Added GitHub Actions CI"
-git push origin master
+git commit -m "Добавили GitHub Actions"
+git push origin main
 ```
