@@ -1,4 +1,41 @@
+name: Release solevr
+
 on:
   push:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++
+
+    - name: Build solver
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Create archives
+      run: |
+        mkdir -p release
+        tar -czvf release/solver-src.tar.gz --exclude='./build' --exclude='./.git' .
+        zip -r release/solver-src.zip . -x 'build/*' '.git/*'
+
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          build/solver
+          release/solver-src.tar.gz
+          release/solver-src.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
