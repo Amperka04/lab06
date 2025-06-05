@@ -39,3 +39,12 @@ jobs:
           release/solver-src.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+    - name: Generate packages
+      run: |
+        cd build
+        cpack
+        mkdir -p ../release
+        mv *.deb *.rpm *.tar.gz *.zip ../release/
